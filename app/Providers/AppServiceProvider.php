@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Encore\Admin\Config\Config;
 use Illuminate\Support\ServiceProvider;
+use Studio\Totem\Totem;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Totem::auth(function($request) {
+            return true;
+        });
     }
 
     /**
