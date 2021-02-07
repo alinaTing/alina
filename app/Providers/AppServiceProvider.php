@@ -2,9 +2,7 @@
 
 namespace App\Providers;
 
-use Encore\Admin\Config\Config;
 use Illuminate\Support\ServiceProvider;
-use Studio\Totem\Totem;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,9 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Totem::auth(function($request) {
-            return true;
-        });
+        if (app()->isLocal()) {
+            $this->app->register(\VIACreative\SudoSu\ServiceProvider::class);
+        }
     }
 
     /**
@@ -26,7 +24,10 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
-        Config::load();  // Add this
+	{
+		\App\Models\User::observe(\App\Observers\UserObserver::class);
+		\App\Models\Reply::observe(\App\Observers\ReplyObserver::class);
+		\App\Models\Topic::observe(\App\Observers\TopicObserver::class);
+        \App\Models\Link::observe(\App\Observers\LinkObserver::class);
     }
 }
