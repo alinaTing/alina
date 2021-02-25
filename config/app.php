@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\HorizonServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Dingo\Api\Provider\LaravelServiceProvider::class,
 
     ],
 

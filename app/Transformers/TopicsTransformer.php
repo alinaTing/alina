@@ -3,21 +3,14 @@
 namespace App\Transformers;
 
 use App\Models\Ddos;
+use App\Models\Topic;
 use League\Fractal\TransformerAbstract;
 
-class DdosTransformer extends TransformerAbstract
+class TopicsTransformer extends TransformerAbstract
 {
-    public function transform(Ddos $ddos)
+    public function transform(Topic $topic)
     {
-        return [
-            'id'         => $ddos->id,
-            'ip'         => $ddos->ip,
-            'name'       => $ddos->name,
-            'bps'        => $ddos->bps,
-            'pps'        => $ddos->pps,
-            'time_at'    => $ddos->time_at,
-            'time'       => $ddos->time,
-        ];
+        return $topic->toArray();
     }
 
 }

@@ -17,3 +17,25 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+$api = app('Dingo\Api\Routing\Router');
+
+$api->version('v1', function($api) {
+    $api->get('version', function() {
+        return response('this is version v1');
+    });
+});
+
+
+$api->version('v1', [
+    'namespace'  => 'App\Http\Controllers\Api',
+    'middleware' => ['bindings']
+], function($api) {
+    $api->group([
+        'middleware' => ['api.throttle'],
+    ], function ($api) {
+        $api->get('topics', 'TopicsController@index');
+    });
+});
+
+
